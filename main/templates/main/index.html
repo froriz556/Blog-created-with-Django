@@ -1,0 +1,19 @@
+{%extends 'main/main.html'%}
+{% block title %}
+Главная страница / Хохл
+{% endblock %}
+
+{% block content %}
+<div class="posts-container">
+<ul class="posts-list">
+{% for post in posts %}
+    {% if post.is_published %}
+       <li class="post-item"><h3>{{ post.title }}</h3> <p>Категории: {{ post.categories_list }}</p>
+       <p>{{post.text_content|truncatechars:500}}</p>
+       <a class='read-btn' href="{% url 'main:post_detail' post.slug %}">Читать статью</a>
+       </li>
+    {% endif %}
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'main/main.html' %}
+{% block title %} Создание статьи / Хохл {% endblock %}
+
+{% block content %}
+<div class="post-container">
+<h1>Публикация статьи</h1>
+
+<form method="post" enctype="multipart/form-data"
+      class="form-container">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="form-btn">Опубликовать</button>
+</form>
+</div>
+
+{% endblock %}
