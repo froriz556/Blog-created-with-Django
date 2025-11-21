@@ -31,6 +31,7 @@ class PostAdd(LoginRequiredMixin, CreateView):
     form_class = PostForm
     template_name = 'main/post_add.html'
     success_url = reverse_lazy('main:home')
+    login_url = reverse_lazy('users:register')
 
     def form_valid(self, form):
         form.instance.author = self.request.user

@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -11,7 +11,7 @@ class Category(models.Model):
 
 class Post(models.Model):
 
-    author = models.ForeignKey(User, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Автор')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT, blank=True, null=True, verbose_name='Автор')
     title = models.CharField(max_length=50, verbose_name="Заголовок")
     slug = models.SlugField(unique=True, verbose_name="Слаг")
     text_content = models.TextField(verbose_name='Содержание статьи')
