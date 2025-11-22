@@ -1,7 +1,8 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.db.models import BooleanField, EmailField, CharField
+from django.db.models import BooleanField, EmailField, CharField, ForeignKey, SET_NULL, DateTimeField
+
 
 class CustomUserManager(BaseUserManager):
 
@@ -33,3 +34,10 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f"{self.username or 'Нет имени'} — {self.email}"
 
+class EmailCodeVerification(models.Model):
+
+    user = ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='email_codes')
+    is_used = BooleanField(default=False)
+    code = CharField(max_length=6)
+    create_time = DateTimeField(auto_now_add=True)
+    end_time = DateTimeField()
