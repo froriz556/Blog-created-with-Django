@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.core.validators import RegexValidator
 
 from .models import CustomUser
 from django import forms
@@ -57,4 +58,10 @@ class LoginForm(forms.Form):
 
         return cleaned_data
 
+class EmailConfirmForm(forms.Form):
+
+    code = forms.CharField(max_length=6,
+                           validators=[
+                               RegexValidator(r'^\d{6}$', 'Код должен содержать ровно 6 цифр.')
+                           ])
 
