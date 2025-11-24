@@ -1,7 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Подтвердить</button>
-</form>
-{% endblock %}
+<div class="form-container">
+    <h2 class="form-title">Подтверждение email</h2>
+
+    <p style="text-align:center; margin-bottom: 20px;">
+        Мы отправили шестизначный код подтверждения на вашу почту.
+    </p>
+
+    <form method="post" id="code-form">
+        {% csrf_token %}
+
+        <div class="code-input-wrapper">
+            {% for i in "123456" %}
+            <input type="text"
+                   maxlength="1"
+                   class="code-box"
+                   inputmode="numeric"
+                   pattern="\d*"
+                   required>
+            {% endfor %}
+        </div>
+
+        <input type="hidden" name="code" id="real-code">
+
+        {% if form.errors %}
+            <p class="error-text">
+                {{ form.errors.code.0 }}
+            </p>
+        {% endif %}
+
+        <button type="submit" class="form-btn" style="width: 100%; margin-top: 25px;">
+            Подтвердить
+        </button>
+
+        <div class="resend-wrapper">
+            <button type="button" id="resend-btn" class="resend-btn">
+                Отправить код повторно
+            </button>
+            <span id="timer"></span>
+        </div>
+    </form>
+</div>
+<script src="{% static 'users/email_confirm.js' %}"></script>
+{%endblock%}

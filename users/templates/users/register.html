@@ -1,8 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация / Хохл{% endblock %}
+
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <button type="submit">Зарегистрироваться</button>
-</form>
-<p>Уже есть аккаунт? <a href="{% url 'users:login' %}">Войти в аккаунт.</a></p>
+<div class="form-container">
+    <h2 class="form-title">Регистрация</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="id_email">Адрес электронной почты</label>
+        {{ form.email }}
+
+        <label for="id_username">Имя пользователя</label>
+        {{ form.username }}
+
+        <label for="id_password">Пароль</label>
+        {{ form.password }}
+
+        <label for="id_password1">Повторите пароль</label>
+        {{ form.password1 }}
+
+        <button class="form-btn" type="submit">Создать аккаунт</button>
+    </form>
+
+    <p style="margin-top: 15px;">
+        Уже есть аккаунт?
+        <a href="{% url 'users:login' %}">Войти</a>
+    </p>
+</div>
 {% endblock %}
