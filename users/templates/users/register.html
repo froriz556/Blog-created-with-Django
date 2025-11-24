@@ -1,4 +1,8 @@
 {% block content %}
-{{ form.as_p }}
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Зарегистрироваться</button>
+</form>
 <p>Уже есть аккаунт? <a href="{% url 'users:login' %}">Войти в аккаунт.</a></p>
 {% endblock %}

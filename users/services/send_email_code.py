@@ -16,6 +16,10 @@ def send_code(user):
         end_time=timezone.now() + timedelta(minutes=5)
     )
 
+    print(f"\n====== CODE FOR {user.email} ======")
+    print(f"Verification code: {code}")
+    print("=================================\n")
+
     subject = "Подтверждение вашей электронной почты"
     message = f"Ваш код подтверждения: {code}. Он действителен 5 минут."
 
@@ -26,7 +30,5 @@ def send_code(user):
         [user.email],
         fail_silently=False,
     )
-
+    print(code)
     return code
-
-

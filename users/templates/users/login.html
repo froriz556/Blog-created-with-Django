@@ -3,6 +3,7 @@
 <form method="post">
     {% csrf_token %}
     {{ form }}
+    <button type="submit">Войти</button>
 </form>
 <p>Нет аккаунта? <a href="{% url 'users:register' %}">Зарегистрируйтесь.</a></p>
 {% endblock %}

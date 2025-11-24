@@ -131,12 +131,15 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = "users.CustomUser"
+AUTHENTICATION_BACKENDS = ['users.backends.EmailBackend',]
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
-EMAIL_HOST=os.getenv('EMAIL_HOST')
-EMAIL_PORT=os.getenv('EMAIL_PORT')
-EMAIL_HOST_USER=os.getenv('EMAIL_HOST')
-EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS=os.getenv('EMAIL_USE_TLS')
-DEFAULT_FROM_EMAIL=os.getenv('DEFAULT_FROM_EMAIL')
+AUTH_USER_MODEL = "users.CustomUser"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
+# EMAIL_HOST=os.getenv('EMAIL_HOST')
+# EMAIL_PORT=os.getenv('EMAIL_PORT')
+# EMAIL_HOST_USER=os.getenv('EMAIL_HOST')
+# EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS=os.getenv('EMAIL_USE_TLS')
+# DEFAULT_FROM_EMAIL=os.getenv('DEFAULT_FROM_EMAIL')

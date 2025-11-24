@@ -36,6 +36,16 @@ class RegisterForm(forms.ModelForm):
 
         return cleaned
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        password = self.cleaned_data.get('password')
+        if password:
+            user.set_password(password)
+        user.is_active = False
+        if commit:
+            user.save()
+        return user
+
 class LoginForm(forms.Form):
 
     email = forms.EmailField(widget=forms.EmailInput)
@@ -46,10 +56,11 @@ class LoginForm(forms.Form):
         super().__init__(*args, **kwargs)
 
     def clean(self):
+
         cleaned_data = super().clean()
         email = cleaned_data.get('email')
         password = cleaned_data.get('password')
-        user = authenticate(email=email, password=password)
+        user = authenticate(request=self.request, email=email, password=password)
         if user is None:
             raise forms.ValidationError("Неверный адрес электронной почты или пароль.")
         if not user.is_active:
@@ -57,6 +68,9 @@ class LoginForm(forms.Form):
         self.user = user
 
         return cleaned_data
+
+    def get_user(self):
+        return self.user
 
 class EmailConfirmForm(forms.Form):
 
